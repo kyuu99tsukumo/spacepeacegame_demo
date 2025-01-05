@@ -5,11 +5,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { AlertCircle } from 'lucide-react'
 
 type CardType = {
-  suit: string
   word: string
 }
 
-const suits = ['♠', '♥', '♦', '♣']
 const words = [
   'Sincerity', 'Trust', 'Respect', 'Responsibility', 'Effort', 'Courage', 'Love', 'Compassion', 'Friendship', 'Gratitude',
   'Harmony', 'Patience', 'Kindness', 'Hope', 'Humility', 'Fairness', 'Justice', 'Creativity', 'Growth', 'Learning',
@@ -36,9 +34,7 @@ export default function ValuesCardGame() {
   }, [])
 
   const initializeDeck = () => {
-    const newDeck = suits.flatMap(suit => 
-      words.map(word => ({ suit, word }))
-    )
+    const newDeck = words.map(word => ({ word }))
     setDeck(shuffleDeck(newDeck))
   }
 
@@ -78,15 +74,30 @@ export default function ValuesCardGame() {
   const renderCard = (card: CardType, index: number, onClick?: (index: number) => void) => (
     <Card 
       key={index} 
-      className={`h-36 flex flex-col items-center justify-center ${onClick && discardCount < MAX_DISCARDS ? 'cursor-pointer' : 'cursor-not-allowed'} ${card.suit === '♥' || card.suit === '♦' ? 'text-red-500' : 'text-black'}`}
+      className={`h-36 flex flex-col items-center justify-center cursor-pointer text-black`}
       onClick={onClick && discardCount < MAX_DISCARDS ? () => onClick(index) : undefined}
     >
       <CardContent className="text-center">
-        <div className="text-3xl mb-2">{card.suit}</div>
         <div className="text-sm font-bold">{card.word}</div>
       </CardContent>
     </Card>
   )
+
+  const saveGameResult = () => {
+    const result = {
+      hand: hand.map(card => card.word),
+      discarded: discarded.map(card => card.word)
+    }
+    const resultText = `Values Card Game Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}`
+
+    // Twitter共有リンクを作成
+    const twitterBaseUrl = "https://twitter.com/intent/tweet"
+    const shareText = encodeURIComponent(resultText)
+    const twitterShareUrl = `${twitterBaseUrl}?text=${shareText}&hashtags=SpacePeaceGame`
+
+    // Twitter共有用リンクを開く
+    window.open(twitterShareUrl, '_blank')
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
@@ -112,10 +123,15 @@ export default function ValuesCardGame() {
             </div>
           </div>
           {gameOver && (
-            <div className="flex items-center justify-center text-yellow-500 mt-4">
-              <AlertCircle className="mr-2" />
-              <span>Game Over! Only 3 cards remain in your hand.</span>
-            </div>
+            <>
+              <div className="flex items-center justify-center text-yellow-500 mt-4">
+                <AlertCircle className="mr-2" />
+                <span>Game Over! Only 3 cards remain in your hand.</span>
+              </div>
+              <Button onClick={saveGameResult} className="mt-4">
+                Share Result on Twitter
+              </Button>
+            </>
           )}
         </CardContent>
       </Card>
