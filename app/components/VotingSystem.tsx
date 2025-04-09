@@ -91,7 +91,7 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `@space_peacegg スペースピースゲームの結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}`
+    const resultText = `結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}\n　@space_peacegg `
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
@@ -112,7 +112,7 @@ export default function ValuesCardGame() {
             残りの捨てられる回数: {MAX_DISCARDS - discardCount}
           </div>
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">手札</h2>
+            <h2 className="text-xl font-semibold mb-2">残したカード</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
               {hand.map((card, index) => renderCard(card, index, discardCard))}
             </div>
