@@ -91,7 +91,11 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `結果： ${result.hand.join(', ')} のタイプ診断！\nあなたのタイプは：${archetype}\n@space_peacegg ✌️\n詳細はこちら → https://spacepeacegame-demo.vercel.app/`
+    const resultText = `結果：
+残したカード: ${result.hand.join(', ')}
+捨てたカード: ${result.discarded.join(', ')}
+@space_peacegg ✌️
+https://spacepeacegame-demo.vercel.app/`
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
