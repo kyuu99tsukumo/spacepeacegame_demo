@@ -91,7 +91,7 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}\n@space_peacegg `
+    const resultText = `結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}\n@space_peacegg ✌️`
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
