@@ -103,7 +103,7 @@ export default function ValuesCardGame() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-4xl">
         <CardContent className="p-6">
-          <h1 className="text-2xl font-bold mb-4">Values Card Game</h1>
+          <h1 className="text-2xl font-bold mb-4">Space Peace Game</h1>
           <Button onClick={dealCards} disabled={gameOver} className="mb-4">
             Deal 7 Cards
           </Button>
