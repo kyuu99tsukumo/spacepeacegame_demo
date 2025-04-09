@@ -88,14 +88,12 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `Values Card Game Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}`
+    const resultText = `Values Card Game Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}\nhttps://x.com/space_peacegg`
 
-    // Twitter共有リンクを作成
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
-    const twitterShareUrl = `${twitterBaseUrl}?text=${shareText}&hashtags=SpacePeaceGame`
+    const twitterShareUrl = `${twitterBaseUrl}?text=${shareText}`
 
-    // Twitter共有用リンクを開く
     window.open(twitterShareUrl, '_blank')
   }
 
@@ -138,3 +136,4 @@ export default function ValuesCardGame() {
     </div>
   )
 }
+
