@@ -1,4 +1,5 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -24,6 +25,58 @@ const words = [
 ]
 
 const MAX_DISCARDS = 4
+
+const archetypeMapping: { [key: string]: string }[] = [
+  {
+    keys: ['家族', 'バランス', '信頼', '安全', '安住', '夢'],
+    label: '支援者 Supporter'
+  },
+  {
+    keys: ['成功', '好奇心', '発見', '学び', '挑戦', '知識'],
+    label: '探究者 Explorer'
+  },
+  {
+    keys: ['信念', '統制', '視点', '賢さ', '法律', '変革'],
+    label: '分析者 Analyst'
+  },
+  {
+    keys: ['美', '創造', '新しさ', '情熱', '夢', '冒険'],
+    label: '創造者 Creator'
+  },
+  {
+    keys: ['変化', '未来', '豊かさ', '期待', '文化', '幸運'],
+    label: '革新者 Innovator'
+  },
+  {
+    keys: ['力', '挑戦', 'エネルギー', '仕事', '金', '機会'],
+    label: '実践者 Pragmatist'
+  },
+  {
+    keys: ['成功', 'リーダーシップ', '努力', '安全', '統制', '国家'],
+    label: '監督者 Supervisor'
+  },
+  {
+    keys: ['覚醒', '未来', '悟り', '奇跡', '自由', '希望'],
+    label: '神託者 Oracle'
+  },
+  {
+    keys: ['信念', '絆', '再生', '記憶', '知識', '視点'],
+    label: '哲学者 Philosopher'
+  },
+  {
+    keys: ['友情', '分かち合い', '愛', 'コミュニティ', '絆', '未来'],
+    label: '共感者 Empath'
+  }
+]
+
+function getArchetypeLabel(handWords: string[]): string | null {
+  for (const { keys, label } of archetypeMapping) {
+    if (keys.every(word => handWords.includes(word))) {
+      return label
+    }
+  }
+  return null
+}
 
 export default function ValuesCardGame() {
   const [deck, setDeck] = useState<CardType[]>([])
@@ -91,7 +144,8 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}\n　@space_peacegg `
+    const archetype = getArchetypeLabel(result.hand)
+    const resultText = `結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}${archetype ? `\nあなたのタイプは：${archetype}` : ''}\n@space_peacegg`
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
