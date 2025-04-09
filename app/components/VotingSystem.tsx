@@ -9,15 +9,16 @@ type CardType = {
 }
 
 const words = [
-  'Sincerity', 'Trust', 'Respect', 'Responsibility', 'Effort', 'Courage', 'Love', 'Compassion', 'Friendship', 'Gratitude',
-  'Harmony', 'Patience', 'Kindness', 'Hope', 'Humility', 'Fairness', 'Justice', 'Creativity', 'Growth', 'Learning',
-  'Freedom', 'Empathy', 'Happiness', 'Challenge', 'Aspiration', 'Wisdom', 'Integrity', 'Solidarity', 'Conviction', 'Passion',
-  'Tolerance', 'Moderation', 'Contribution', 'Sustainability', 'Unity', 'Coordination', 'Honor', 'Duty', 'Honesty', 'Prosperity',
-  'Abundance', 'Cooperation', 'Independence', 'Stability', 'Determination', 'Flexibility', 'Safety', 'Fortitude', 'Confidence', 'Inspiration',
-  'Allocation', 'Ambition', 'Prudence', 'Coexistence', 'Mercy', 'Timing', 'Loyalty', 'Competence', 'Openness', 'Modesty',
-  'Selflessness', 'Frugality', 'Understanding', 'Consideration', 'Benevolence', 'Excellence', 'Obedience', 'Execution', 'Discipline', 'Peace',
-  'Initiative', 'Rationality', 'Insight', 'Intelligence', 'Agility', 'Resonance', 'Integration', 'Sensitivity', 'Truth', 'Faith',
-  'Sharing', 'Enthusiasm', 'Devotion', 'Knowledge', 'Attention', 'Inclusiveness', 'Sensibility', 'Intuition', 'Expectation'
+  '好奇心', '発見', '学び', '挑戦', '知識',
+  '統制', '視点', '賢さ', '法律', '変革',
+  '創造', '新しさ', '情熱', '夢', '冒険',
+  '未来', '豊かさ', '期待', '文化', '幸運',
+  '挑戦', 'エネルギー', '仕事', '金', '機会',
+  'リーダーシップ', '努力', '安全', '統制', '国家',
+  '未来', '悟り', '奇跡', '自由', '希望',
+  '絆', '再生', '記憶', '知識', '視点',
+  '分かち合い', '愛', 'コミュニティ', '絆', '未来',
+  'バランス', '信頼', '安全', '安住', '夢'
 ]
 
 const MAX_DISCARDS = 4
@@ -44,7 +45,7 @@ export default function ValuesCardGame() {
 
   const dealCards = () => {
     if (deck.length < 7) {
-      alert("Not enough cards in the deck!")
+      alert("デッキにカードが足りません！")
       return
     }
     const dealtCards = deck.slice(0, 7)
@@ -57,7 +58,7 @@ export default function ValuesCardGame() {
 
   const discardCard = (index: number) => {
     if (discardCount >= MAX_DISCARDS) {
-      alert("You've reached the maximum number of discards!")
+      alert("捨てられる回数の上限に達しました！")
       return
     }
     const [discardedCard] = hand.splice(index, 1)
@@ -88,7 +89,7 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}\nhttps://x.com/space_peacegg`
+    const resultText = `@space_peacegg スペースピースゲームの結果：\n残したカード: ${result.hand.join(', ')}\n捨てたカード: ${result.discarded.join(', ')}`
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
@@ -101,21 +102,21 @@ export default function ValuesCardGame() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-4xl">
         <CardContent className="p-6">
-          <h1 className="text-2xl font-bold mb-4">space peace game</h1>
+          <h1 className="text-2xl font-bold mb-4">スペースピースゲーム</h1>
           <Button onClick={dealCards} disabled={gameOver} className="mb-4">
-            Deal 7 Cards
+            カードを7枚引く
           </Button>
           <div className="mb-2 text-sm font-medium">
-            Discards remaining: {MAX_DISCARDS - discardCount}
+            残りの捨てられる回数: {MAX_DISCARDS - discardCount}
           </div>
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Your Hand</h2>
+            <h2 className="text-xl font-semibold mb-2">手札</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
               {hand.map((card, index) => renderCard(card, index, discardCard))}
             </div>
           </div>
           <div>
-            <h2 className="text-xl font-semibold mb-2">Discarded Cards</h2>
+            <h2 className="text-xl font-semibold mb-2">捨てたカード</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
               {discarded.map((card, index) => renderCard(card, index))}
             </div>
@@ -124,10 +125,10 @@ export default function ValuesCardGame() {
             <>
               <div className="flex items-center justify-center text-yellow-500 mt-4">
                 <AlertCircle className="mr-2" />
-                <span>Game Over! Only 3 cards remain in your hand.</span>
+                <span>ゲーム終了！手札が3枚になりました。</span>
               </div>
               <Button onClick={saveGameResult} className="mt-4">
-                Share Result on Twitter
+                結果をXでシェアする
               </Button>
             </>
           )}
@@ -136,4 +137,3 @@ export default function ValuesCardGame() {
     </div>
   )
 }
-
