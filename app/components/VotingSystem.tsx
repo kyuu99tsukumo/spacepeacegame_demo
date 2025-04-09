@@ -88,7 +88,7 @@ export default function ValuesCardGame() {
       hand: hand.map(card => card.word),
       discarded: discarded.map(card => card.word)
     }
-    const resultText = `Values Card Game Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}\nhttps://x.com/space_peacegg`
+    const resultText = `Result:\nHand: ${result.hand.join(', ')}\nDiscarded: ${result.discarded.join(', ')}\nhttps://x.com/space_peacegg`
 
     const twitterBaseUrl = "https://twitter.com/intent/tweet"
     const shareText = encodeURIComponent(resultText)
